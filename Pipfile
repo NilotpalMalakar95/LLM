@@ -9,6 +9,11 @@ black = "*"
 python-dotenv = "*"
 openai = "*"
 langchain-openai = "*"
+bs4 = "*"
+selenium = "*"
+wikipedia = "*"
+google-search-results = "*"
+langchainhub = "*"
 
 [dev-packages]
 
