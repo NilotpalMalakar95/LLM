@@ -9,10 +9,16 @@ from tools.tools import get_wikipedia_data
 def lookup(keyword: str) -> str:
     llm_model = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
 
-    template = """given a keyword {keyword} I want you to summarize everything that you can find in a paragraph or 10 bullet points and 300 words maximum.
-    If you are creating bullet points follow the following steps:
-    1. The points should not be too large and should be technical and professional.\
-    2. Start each point with a number example 1,2,3..."""
+    template = """given a keyword {keyword} 
+    I want you to
+    1. Create a short summary on the keyword
+    2. Give 3 most important factors to be known about the keyword
+    Note: Make sure to keep the word limit within 300 words and keep the answers as short and as technical as possible"""
+
+    # template = """given a keyword {keyword} I want you to summarize everything that you can find in a paragraph or 10 bullet points and 300 words maximum.
+    # If you are creating bullet points follow the following steps:
+    # 1. The points should not be too large and should be technical and professional.\
+    # 2. Start each point with a number example 1,2,3..."""
 
     tools_for_agent = [
         Tool(

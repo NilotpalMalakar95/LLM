@@ -1,0 +1,52 @@
+<!-- templates/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Wiki Data Gatherer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
+    <div class="spinner-container" id="spinner-container" style="display: none;">
+        <i id="loading-spinner" class="fas fa-spinner fa-spin"></i>
+    </div>
+</head>
+<body>
+    <div class="container">
+        <h1>Ice Breaker</h1>
+        <form id="keyword-form">
+            <input type="text" id="keyword" name="keyword" placeholder="Enter keyword">
+            <button id="magic-button" type="submit">Do Your Magic</button>
+        </form>
+            <h2>Summary</h2>
+            <p id="summary"></p>
+            <h2>Interesting Facts</h2>
+            <div id="facts"></div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('#keyword-form').on('submit', function (e) {
+                e.preventDefault();
+                $('#spinner-container').show();
+                $.ajax({
+                    url: '/process',
+                    data: $('#keyword-form').serialize(),
+                    type: 'POST',
+                    success: function (response) {
+                        $('#summary').text(response.summary);
+                        $('#facts').text(response.facts);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    },
+                    complete: function () {
+                        $('#spinner-container').hide();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
